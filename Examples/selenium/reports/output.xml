@@ -1,0 +1,266 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<robot generator="Robot 3.2.1 (Python 3.8.3 on win32)" generated="20200912 17:07:46.992" rpa="false">
+<suite id="s1" name="Login" source="C:\automation\training\Robot Framework\Examples\selenium\tests\login.robot">
+<kw name="Run Keywords" library="BuiltIn" type="setup">
+<doc>Executes all the given keywords in a sequence.</doc>
+<arguments>
+<arg>Open The Internet</arg>
+<arg>Go To Loginpage</arg>
+</arguments>
+<kw name="Open The Internet" library="basePage">
+<kw name="Open Browser" library="SeleniumLibrary">
+<doc>Opens a new browser instance to the optional ``url``.</doc>
+<arguments>
+<arg>${url}</arg>
+<arg>${browser}</arg>
+</arguments>
+<msg timestamp="20200912 17:07:47.414" level="INFO">Opening browser 'Google Chrome' to base url 'https://the-internet.herokuapp.com/'.</msg>
+<status status="PASS" starttime="20200912 17:07:47.414" endtime="20200912 17:07:52.492"></status>
+</kw>
+<status status="PASS" starttime="20200912 17:07:47.413" endtime="20200912 17:07:52.493"></status>
+</kw>
+<kw name="Go To Loginpage" library="loginPage">
+<kw name="Set Variable" library="BuiltIn">
+<doc>Returns the given values which can then be assigned to a variables.</doc>
+<arguments>
+<arg>${BASE_URL}${ENDPOINT}</arg>
+</arguments>
+<assign>
+<var>${url}</var>
+</assign>
+<msg timestamp="20200912 17:07:52.494" level="INFO">${url} = https://the-internet.herokuapp.com//login</msg>
+<status status="PASS" starttime="20200912 17:07:52.494" endtime="20200912 17:07:52.494"></status>
+</kw>
+<kw name="Go To" library="SeleniumLibrary">
+<doc>Navigates the current browser window to the provided ``url``.</doc>
+<arguments>
+<arg>${url}</arg>
+</arguments>
+<msg timestamp="20200912 17:07:52.495" level="INFO">Opening url 'https://the-internet.herokuapp.com//login'</msg>
+<status status="PASS" starttime="20200912 17:07:52.494" endtime="20200912 17:07:52.884"></status>
+</kw>
+<status status="PASS" starttime="20200912 17:07:52.493" endtime="20200912 17:07:52.884"></status>
+</kw>
+<status status="PASS" starttime="20200912 17:07:47.413" endtime="20200912 17:07:52.884"></status>
+</kw>
+<test id="s1-t1" name="Correct login">
+<kw name="Login With Username and Password" library="loginPage">
+<arguments>
+<arg>${USERNAME}</arg>
+<arg>${PASSWORD}</arg>
+</arguments>
+<kw name="Input Text" library="SeleniumLibrary">
+<doc>Types the given ``text`` into the text field identified by ``locator``.</doc>
+<arguments>
+<arg>${USERNAMETXT}</arg>
+<arg>${username}</arg>
+</arguments>
+<msg timestamp="20200912 17:07:52.888" level="INFO">Typing text 'tomsmith' into text field 'id:username'.</msg>
+<status status="PASS" starttime="20200912 17:07:52.888" endtime="20200912 17:07:53.046"></status>
+</kw>
+<kw name="Input Text" library="SeleniumLibrary">
+<doc>Types the given ``text`` into the text field identified by ``locator``.</doc>
+<arguments>
+<arg>${PASSWORDTXT}</arg>
+<arg>${password}</arg>
+</arguments>
+<msg timestamp="20200912 17:07:53.048" level="INFO">Typing text 'SuperSecretPassword!' into text field 'id:password'.</msg>
+<status status="PASS" starttime="20200912 17:07:53.047" endtime="20200912 17:07:53.192"></status>
+</kw>
+<kw name="Click Element" library="SeleniumLibrary">
+<doc>Click the element identified by ``locator``.</doc>
+<arguments>
+<arg>${LOGINBTN}</arg>
+</arguments>
+<msg timestamp="20200912 17:07:53.193" level="INFO">Clicking element 'css:Button'.</msg>
+<status status="PASS" starttime="20200912 17:07:53.192" endtime="20200912 17:07:53.695"></status>
+</kw>
+<status status="PASS" starttime="20200912 17:07:52.887" endtime="20200912 17:07:53.696"></status>
+</kw>
+<kw name="Get Header" library="securePage">
+<assign>
+<var>${header}</var>
+</assign>
+<kw name="Get Text" library="SeleniumLibrary">
+<doc>Returns the text value of the element identified by ``locator``.</doc>
+<arguments>
+<arg>${HEADERTXT}</arg>
+</arguments>
+<assign>
+<var>${header}</var>
+</assign>
+<msg timestamp="20200912 17:07:53.772" level="INFO">${header} = Secure Area</msg>
+<status status="PASS" starttime="20200912 17:07:53.699" endtime="20200912 17:07:53.772"></status>
+</kw>
+<msg timestamp="20200912 17:07:53.773" level="INFO">${header} = Secure Area</msg>
+<status status="PASS" starttime="20200912 17:07:53.698" endtime="20200912 17:07:53.773"></status>
+</kw>
+<kw name="Logout" library="securePage">
+<kw name="Click Element" library="SeleniumLibrary">
+<doc>Click the element identified by ``locator``.</doc>
+<arguments>
+<arg>${LOGOUTBTN}</arg>
+</arguments>
+<msg timestamp="20200912 17:07:53.775" level="INFO">Clicking element 'class:button'.</msg>
+<status status="PASS" starttime="20200912 17:07:53.774" endtime="20200912 17:07:54.150"></status>
+</kw>
+<status status="PASS" starttime="20200912 17:07:53.774" endtime="20200912 17:07:54.151"></status>
+</kw>
+<kw name="Should Contain" library="BuiltIn">
+<doc>Fails if ``container`` does not contain ``item`` one or more times.</doc>
+<arguments>
+<arg>Secure Area</arg>
+<arg>${header}</arg>
+</arguments>
+<status status="PASS" starttime="20200912 17:07:54.151" endtime="20200912 17:07:54.152"></status>
+</kw>
+<status status="PASS" starttime="20200912 17:07:52.884" endtime="20200912 17:07:54.152" critical="yes"></status>
+</test>
+<test id="s1-t2" name="Incorrect Username">
+<kw name="Login With Username and Password" library="loginPage">
+<arguments>
+<arg>tom</arg>
+<arg>${PASSWORD}</arg>
+</arguments>
+<kw name="Input Text" library="SeleniumLibrary">
+<doc>Types the given ``text`` into the text field identified by ``locator``.</doc>
+<arguments>
+<arg>${USERNAMETXT}</arg>
+<arg>${username}</arg>
+</arguments>
+<msg timestamp="20200912 17:07:54.160" level="INFO">Typing text 'tom' into text field 'id:username'.</msg>
+<status status="PASS" starttime="20200912 17:07:54.159" endtime="20200912 17:07:54.274"></status>
+</kw>
+<kw name="Input Text" library="SeleniumLibrary">
+<doc>Types the given ``text`` into the text field identified by ``locator``.</doc>
+<arguments>
+<arg>${PASSWORDTXT}</arg>
+<arg>${password}</arg>
+</arguments>
+<msg timestamp="20200912 17:07:54.275" level="INFO">Typing text 'SuperSecretPassword!' into text field 'id:password'.</msg>
+<status status="PASS" starttime="20200912 17:07:54.275" endtime="20200912 17:07:54.428"></status>
+</kw>
+<kw name="Click Element" library="SeleniumLibrary">
+<doc>Click the element identified by ``locator``.</doc>
+<arguments>
+<arg>${LOGINBTN}</arg>
+</arguments>
+<msg timestamp="20200912 17:07:54.429" level="INFO">Clicking element 'css:Button'.</msg>
+<status status="PASS" starttime="20200912 17:07:54.429" endtime="20200912 17:07:54.826"></status>
+</kw>
+<status status="PASS" starttime="20200912 17:07:54.159" endtime="20200912 17:07:54.826"></status>
+</kw>
+<kw name="Get Error Message" library="loginPage">
+<assign>
+<var>${error}</var>
+</assign>
+<kw name="Get Text" library="SeleniumLibrary">
+<doc>Returns the text value of the element identified by ``locator``.</doc>
+<arguments>
+<arg>${ERRORMSG}</arg>
+</arguments>
+<assign>
+<var>${error}</var>
+</assign>
+<msg timestamp="20200912 17:07:54.860" level="INFO">${error} = Your username is invalid!
+×</msg>
+<status status="PASS" starttime="20200912 17:07:54.827" endtime="20200912 17:07:54.860"></status>
+</kw>
+<msg timestamp="20200912 17:07:54.861" level="INFO">${error} = Your username is invalid!
+×</msg>
+<status status="PASS" starttime="20200912 17:07:54.826" endtime="20200912 17:07:54.861"></status>
+</kw>
+<kw name="Should Contain" library="BuiltIn">
+<doc>Fails if ``container`` does not contain ``item`` one or more times.</doc>
+<arguments>
+<arg>${error}</arg>
+<arg>Your username is invalid!</arg>
+</arguments>
+<status status="PASS" starttime="20200912 17:07:54.862" endtime="20200912 17:07:54.862"></status>
+</kw>
+<status status="PASS" starttime="20200912 17:07:54.157" endtime="20200912 17:07:54.862" critical="yes"></status>
+</test>
+<test id="s1-t3" name="Incorrect Password">
+<kw name="Login With Username and Password" library="loginPage">
+<arguments>
+<arg>${USERNAME}</arg>
+<arg>incorrectPassword</arg>
+</arguments>
+<kw name="Input Text" library="SeleniumLibrary">
+<doc>Types the given ``text`` into the text field identified by ``locator``.</doc>
+<arguments>
+<arg>${USERNAMETXT}</arg>
+<arg>${username}</arg>
+</arguments>
+<msg timestamp="20200912 17:07:54.874" level="INFO">Typing text 'tomsmith' into text field 'id:username'.</msg>
+<status status="PASS" starttime="20200912 17:07:54.873" endtime="20200912 17:07:55.002"></status>
+</kw>
+<kw name="Input Text" library="SeleniumLibrary">
+<doc>Types the given ``text`` into the text field identified by ``locator``.</doc>
+<arguments>
+<arg>${PASSWORDTXT}</arg>
+<arg>${password}</arg>
+</arguments>
+<msg timestamp="20200912 17:07:55.003" level="INFO">Typing text 'incorrectPassword' into text field 'id:password'.</msg>
+<status status="PASS" starttime="20200912 17:07:55.003" endtime="20200912 17:07:55.139"></status>
+</kw>
+<kw name="Click Element" library="SeleniumLibrary">
+<doc>Click the element identified by ``locator``.</doc>
+<arguments>
+<arg>${LOGINBTN}</arg>
+</arguments>
+<msg timestamp="20200912 17:07:55.140" level="INFO">Clicking element 'css:Button'.</msg>
+<status status="PASS" starttime="20200912 17:07:55.140" endtime="20200912 17:07:55.654"></status>
+</kw>
+<status status="PASS" starttime="20200912 17:07:54.872" endtime="20200912 17:07:55.655"></status>
+</kw>
+<kw name="Get Error Message" library="loginPage">
+<assign>
+<var>${error}</var>
+</assign>
+<kw name="Get Text" library="SeleniumLibrary">
+<doc>Returns the text value of the element identified by ``locator``.</doc>
+<arguments>
+<arg>${ERRORMSG}</arg>
+</arguments>
+<assign>
+<var>${error}</var>
+</assign>
+<msg timestamp="20200912 17:07:55.693" level="INFO">${error} = Your password is invalid!
+×</msg>
+<status status="PASS" starttime="20200912 17:07:55.657" endtime="20200912 17:07:55.693"></status>
+</kw>
+<msg timestamp="20200912 17:07:55.694" level="INFO">${error} = Your password is invalid!
+×</msg>
+<status status="PASS" starttime="20200912 17:07:55.656" endtime="20200912 17:07:55.694"></status>
+</kw>
+<kw name="Should Contain" library="BuiltIn">
+<doc>Fails if ``container`` does not contain ``item`` one or more times.</doc>
+<arguments>
+<arg>${error}</arg>
+<arg>Your password is invalid!</arg>
+</arguments>
+<status status="PASS" starttime="20200912 17:07:55.695" endtime="20200912 17:07:55.695"></status>
+</kw>
+<status status="PASS" starttime="20200912 17:07:54.871" endtime="20200912 17:07:55.696" critical="yes"></status>
+</test>
+<kw name="Close Browser" library="SeleniumLibrary" type="teardown">
+<doc>Closes the current browser.</doc>
+<status status="PASS" starttime="20200912 17:07:55.700" endtime="20200912 17:07:57.992"></status>
+</kw>
+<status status="PASS" starttime="20200912 17:07:46.997" endtime="20200912 17:07:57.992"></status>
+</suite>
+<statistics>
+<total>
+<stat pass="3" fail="0">Critical Tests</stat>
+<stat pass="3" fail="0">All Tests</stat>
+</total>
+<tag>
+</tag>
+<suite>
+<stat pass="3" fail="0" id="s1" name="Login">Login</stat>
+</suite>
+</statistics>
+<errors>
+</errors>
+</robot>

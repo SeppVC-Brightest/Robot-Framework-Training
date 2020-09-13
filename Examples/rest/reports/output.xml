@@ -1,0 +1,369 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<robot generator="Robot 3.2.1 (Python 3.8.3 on win32)" generated="20200913 17:48:08.031" rpa="false">
+<suite id="s1" name="postcodesTest" source="C:\automation\training\Robot Framework\Examples\rest\tests\postcodesTest.robot">
+<kw name="Create Postcode Session" library="baseService" type="setup">
+<kw name="Create Session" library="RequestsLibrary">
+<doc>Create Session: create a HTTP session to a server</doc>
+<arguments>
+<arg>${api}</arg>
+<arg>${url}</arg>
+</arguments>
+<msg timestamp="20200913 17:48:08.499" level="INFO">Creating Session using : alias=APIUt, url=http://postcodes.io, headers={},                     cookies={}, auth=None, timeout=None, proxies=None, verify=False,                     debug=0 </msg>
+<status status="PASS" starttime="20200913 17:48:08.498" endtime="20200913 17:48:08.499"></status>
+</kw>
+<status status="PASS" starttime="20200913 17:48:08.498" endtime="20200913 17:48:08.499"></status>
+</kw>
+<test id="s1-t1" name="Validate Random Postcode">
+<kw name="Get Random Postcode As String" library="randomPostcodes">
+<assign>
+<var>${postcode}</var>
+</assign>
+<kw name="Get Random Postcode" library="randomPostcodes">
+<arguments>
+<arg>${api}</arg>
+</arguments>
+<assign>
+<var>${statusCode}</var>
+<var>${reponseBody}</var>
+</assign>
+<kw name="Get Request" library="RequestsLibrary">
+<doc>Send a GET request on the session object found using the
+given `alias`</doc>
+<arguments>
+<arg>${api}</arg>
+<arg>${RANDOM_POSTCODES_ENDPOINT}</arg>
+</arguments>
+<assign>
+<var>${response}</var>
+</assign>
+<msg timestamp="20200913 17:48:08.611" level="INFO">GET Request : url=http://postcodes.io/random/postcodes 
+ path_url=/random/postcodes 
+ headers={'User-Agent': 'python-requests/2.24.0', 'Accept-Encoding': 'gzip, deflate', 'Accept': '*/*', 'Connection': 'keep-alive'} 
+ body=None 
+ </msg>
+<msg timestamp="20200913 17:48:08.611" level="INFO">GET Response : url=http://postcodes.io/random/postcodes 
+ status=200, reason=OK 
+ body={"status":200,"result":{"postcode":"GL52 3YJ","quality":1,"eastings":394452,"northings":223016,"country":"England","nhs_ha":"South West","longitude":-2.08205,"latitude":51.905654,"european_electoral_region":"South West","primary_care_trust":"Gloucestershire","region":"South West","lsoa":"Cheltenham 004C","msoa":"Cheltenham 004","incode":"3YJ","outcode":"GL52","parliamentary_constituency":"Cheltenham","admin_district":"Cheltenham","parish":"Cheltenham, unparished area","admin_county":"Gloucestershire","admin_ward":"St Paul's","ced":"St. Paul's and Swindon","ccg":"NHS Gloucestershire","nuts":"Gloucestershire","codes":{"admin_district":"E07000078","admin_county":"E10000013","admin_ward":"E05004302","parish":"E43000255","parliamentary_constituency":"E14000630","ccg":"E38000062","ccg_id":"11M","ced":"E58000515","nuts":"UKK13"}}} 
+ </msg>
+<msg timestamp="20200913 17:48:08.611" level="INFO">${response} = &lt;Response [200]&gt;</msg>
+<status status="PASS" starttime="20200913 17:48:08.502" endtime="20200913 17:48:08.611"></status>
+</kw>
+<kw name="To Json" library="RequestsLibrary">
+<doc>Convert a string to a JSON object</doc>
+<arguments>
+<arg>${response.text}</arg>
+</arguments>
+<assign>
+<var>${responseBody}</var>
+</assign>
+<msg timestamp="20200913 17:48:08.612" level="INFO">To JSON using : content={"status":200,"result":{"postcode":"GL52 3YJ","quality":1,"eastings":394452,"northings":223016,"country":"England","nhs_ha":"South West","longitude":-2.08205,"latitude":51.905654,"european_electoral_region":"South West","primary_care_trust":"Gloucestershire","region":"South West","lsoa":"Cheltenham 004C","msoa":"Cheltenham 004","incode":"3YJ","outcode":"GL52","parliamentary_constituency":"Cheltenham","admin_district":"Cheltenham","parish":"Cheltenham, unparished area","admin_county":"Gloucestershire","admin_ward":"St Paul's","ced":"St. Paul's and Swindon","ccg":"NHS Gloucestershire","nuts":"Gloucestershire","codes":{"admin_district":"E07000078","admin_county":"E10000013","admin_ward":"E05004302","parish":"E43000255","parliamentary_constituency":"E14000630","ccg":"E38000062","ccg_id":"11M","ced":"E58000515","nuts":"UKK13"}}} </msg>
+<msg timestamp="20200913 17:48:08.612" level="INFO">To JSON using : pretty_print=False </msg>
+<msg timestamp="20200913 17:48:08.612" level="INFO">${responseBody} = {'status': 200, 'result': {'postcode': 'GL52 3YJ', 'quality': 1, 'eastings': 394452, 'northings': 223016, 'country': 'England', 'nhs_ha': 'South West', 'longitude': -2.08205, 'latitude': 51.905654, 'e...</msg>
+<status status="PASS" starttime="20200913 17:48:08.612" endtime="20200913 17:48:08.612"></status>
+</kw>
+<kw name="Get Value From Json" library="JSONLibrary">
+<doc>Get Value From JSON using JSONPath</doc>
+<arguments>
+<arg>${responseBody}</arg>
+<arg>$.result</arg>
+</arguments>
+<assign>
+<var>${responseBody}</var>
+</assign>
+<msg timestamp="20200913 17:48:08.670" level="INFO">${responseBody} = [{'postcode': 'GL52 3YJ', 'quality': 1, 'eastings': 394452, 'northings': 223016, 'country': 'England', 'nhs_ha': 'South West', 'longitude': -2.08205, 'latitude': 51.905654, 'european_electoral_region'...</msg>
+<status status="PASS" starttime="20200913 17:48:08.612" endtime="20200913 17:48:08.670"></status>
+</kw>
+<kw name="Get From List" library="Collections">
+<doc>Returns the value specified with an ``index`` from ``list``.</doc>
+<arguments>
+<arg>${responseBody}</arg>
+<arg>0</arg>
+</arguments>
+<assign>
+<var>${responseBody}</var>
+</assign>
+<msg timestamp="20200913 17:48:08.671" level="INFO">${responseBody} = {'postcode': 'GL52 3YJ', 'quality': 1, 'eastings': 394452, 'northings': 223016, 'country': 'England', 'nhs_ha': 'South West', 'longitude': -2.08205, 'latitude': 51.905654, 'european_electoral_region':...</msg>
+<status status="PASS" starttime="20200913 17:48:08.670" endtime="20200913 17:48:08.671"></status>
+</kw>
+<msg timestamp="20200913 17:48:08.671" level="INFO">${statusCode} = 200</msg>
+<msg timestamp="20200913 17:48:08.671" level="INFO">${reponseBody} = {'postcode': 'GL52 3YJ', 'quality': 1, 'eastings': 394452, 'northings': 223016, 'country': 'England', 'nhs_ha': 'South West', 'longitude': -2.08205, 'latitude': 51.905654, 'european_electoral_region':...</msg>
+<status status="PASS" starttime="20200913 17:48:08.501" endtime="20200913 17:48:08.671"></status>
+</kw>
+<kw name="Get Value From Json" library="JSONLibrary">
+<doc>Get Value From JSON using JSONPath</doc>
+<arguments>
+<arg>${reponseBody}</arg>
+<arg>$.postcode</arg>
+</arguments>
+<assign>
+<var>${result}</var>
+</assign>
+<msg timestamp="20200913 17:48:08.748" level="INFO">${result} = ['GL52 3YJ']</msg>
+<status status="PASS" starttime="20200913 17:48:08.672" endtime="20200913 17:48:08.748"></status>
+</kw>
+<kw name="Get From List" library="Collections">
+<doc>Returns the value specified with an ``index`` from ``list``.</doc>
+<arguments>
+<arg>${result}</arg>
+<arg>0</arg>
+</arguments>
+<assign>
+<var>${postcode}</var>
+</assign>
+<msg timestamp="20200913 17:48:08.749" level="INFO">${postcode} = GL52 3YJ</msg>
+<status status="PASS" starttime="20200913 17:48:08.748" endtime="20200913 17:48:08.749"></status>
+</kw>
+<msg timestamp="20200913 17:48:08.749" level="INFO">${postcode} = GL52 3YJ</msg>
+<status status="PASS" starttime="20200913 17:48:08.500" endtime="20200913 17:48:08.749"></status>
+</kw>
+<kw name="Validate Postcode" library="postcodes">
+<arguments>
+<arg>${postcode}</arg>
+</arguments>
+<assign>
+<var>${isValidated}</var>
+</assign>
+<kw name="Get Request" library="RequestsLibrary">
+<doc>Send a GET request on the session object found using the
+given `alias`</doc>
+<arguments>
+<arg>${api}</arg>
+<arg>${POSTCODES_ENDPOINT}/${postcode}/validate</arg>
+</arguments>
+<assign>
+<var>${response}</var>
+</assign>
+<msg timestamp="20200913 17:48:08.787" level="INFO">GET Request : url=http://postcodes.io/postcodes/GL52%203YJ/validate 
+ path_url=/postcodes/GL52%203YJ/validate 
+ headers={'User-Agent': 'python-requests/2.24.0', 'Accept-Encoding': 'gzip, deflate', 'Accept': '*/*', 'Connection': 'keep-alive'} 
+ body=None 
+ </msg>
+<msg timestamp="20200913 17:48:08.787" level="INFO">GET Response : url=http://postcodes.io/postcodes/GL52%203YJ/validate 
+ status=200, reason=OK 
+ body={"status":200,"result":true} 
+ </msg>
+<msg timestamp="20200913 17:48:08.787" level="INFO">${response} = &lt;Response [200]&gt;</msg>
+<status status="PASS" starttime="20200913 17:48:08.751" endtime="20200913 17:48:08.788"></status>
+</kw>
+<kw name="To Json" library="RequestsLibrary">
+<doc>Convert a string to a JSON object</doc>
+<arguments>
+<arg>${response.text}</arg>
+</arguments>
+<assign>
+<var>${response}</var>
+</assign>
+<msg timestamp="20200913 17:48:08.789" level="INFO">To JSON using : content={"status":200,"result":true} </msg>
+<msg timestamp="20200913 17:48:08.789" level="INFO">To JSON using : pretty_print=False </msg>
+<msg timestamp="20200913 17:48:08.789" level="INFO">${response} = {'status': 200, 'result': True}</msg>
+<status status="PASS" starttime="20200913 17:48:08.788" endtime="20200913 17:48:08.789"></status>
+</kw>
+<kw name="Get Value From Json" library="JSONLibrary">
+<doc>Get Value From JSON using JSONPath</doc>
+<arguments>
+<arg>${response}</arg>
+<arg>$.result</arg>
+</arguments>
+<assign>
+<var>${result}</var>
+</assign>
+<msg timestamp="20200913 17:48:08.832" level="INFO">${result} = [True]</msg>
+<status status="PASS" starttime="20200913 17:48:08.789" endtime="20200913 17:48:08.832"></status>
+</kw>
+<kw name="Get From List" library="Collections">
+<doc>Returns the value specified with an ``index`` from ``list``.</doc>
+<arguments>
+<arg>${result}</arg>
+<arg>0</arg>
+</arguments>
+<assign>
+<var>${result}</var>
+</assign>
+<msg timestamp="20200913 17:48:08.832" level="INFO">${result} = True</msg>
+<status status="PASS" starttime="20200913 17:48:08.832" endtime="20200913 17:48:08.832"></status>
+</kw>
+<msg timestamp="20200913 17:48:08.833" level="INFO">${isValidated} = True</msg>
+<status status="PASS" starttime="20200913 17:48:08.750" endtime="20200913 17:48:08.833"></status>
+</kw>
+<kw name="Should Be True" library="BuiltIn">
+<doc>Fails if the given condition is not true.</doc>
+<arguments>
+<arg>${isValidated}</arg>
+</arguments>
+<status status="PASS" starttime="20200913 17:48:08.834" endtime="20200913 17:48:08.834"></status>
+</kw>
+<kw name="Is Postcode Terminated" library="terminatedPostcodes">
+<arguments>
+<arg>${postcode}</arg>
+</arguments>
+<assign>
+<var>${isTerminated}</var>
+</assign>
+<kw name="Lookup Terminated Postcode" library="terminatedPostcodes">
+<arguments>
+<arg>${postcode}</arg>
+<arg>${api}</arg>
+</arguments>
+<assign>
+<var>${statuscode}</var>
+<var>${result}</var>
+<var>${error}</var>
+</assign>
+<kw name="Get Request" library="RequestsLibrary">
+<doc>Send a GET request on the session object found using the
+given `alias`</doc>
+<arguments>
+<arg>${api}</arg>
+<arg>${TERMINATED_POSTCODES_ENDPOINT}/${postcode}</arg>
+</arguments>
+<assign>
+<var>${response}</var>
+</assign>
+<msg timestamp="20200913 17:48:08.870" level="INFO">GET Request : url=http://postcodes.io/terminated_postcodes/GL52%203YJ 
+ path_url=/terminated_postcodes/GL52%203YJ 
+ headers={'User-Agent': 'python-requests/2.24.0', 'Accept-Encoding': 'gzip, deflate', 'Accept': '*/*', 'Connection': 'keep-alive'} 
+ body=None 
+ </msg>
+<msg timestamp="20200913 17:48:08.870" level="INFO">GET Response : url=http://postcodes.io/terminated_postcodes/GL52%203YJ 
+ status=404, reason=Not Found 
+ body={"status":404,"error":"Terminated postcode not found"} 
+ </msg>
+<msg timestamp="20200913 17:48:08.871" level="INFO">${response} = &lt;Response [404]&gt;</msg>
+<status status="PASS" starttime="20200913 17:48:08.838" endtime="20200913 17:48:08.871"></status>
+</kw>
+<kw name="To Json" library="RequestsLibrary">
+<doc>Convert a string to a JSON object</doc>
+<arguments>
+<arg>${response.text}</arg>
+</arguments>
+<assign>
+<var>${responseBody}</var>
+</assign>
+<msg timestamp="20200913 17:48:08.871" level="INFO">To JSON using : content={"status":404,"error":"Terminated postcode not found"} </msg>
+<msg timestamp="20200913 17:48:08.872" level="INFO">To JSON using : pretty_print=False </msg>
+<msg timestamp="20200913 17:48:08.872" level="INFO">${responseBody} = {'status': 404, 'error': 'Terminated postcode not found'}</msg>
+<status status="PASS" starttime="20200913 17:48:08.871" endtime="20200913 17:48:08.872"></status>
+</kw>
+<kw name="Get Value From Json" library="JSONLibrary">
+<doc>Get Value From JSON using JSONPath</doc>
+<arguments>
+<arg>${responseBody}</arg>
+<arg>$.result</arg>
+</arguments>
+<assign>
+<var>${responseResult}</var>
+</assign>
+<msg timestamp="20200913 17:48:08.925" level="INFO">${responseResult} = []</msg>
+<status status="PASS" starttime="20200913 17:48:08.872" endtime="20200913 17:48:08.925"></status>
+</kw>
+<kw name="Get Value From Json" library="JSONLibrary">
+<doc>Get Value From JSON using JSONPath</doc>
+<arguments>
+<arg>${responseBody}</arg>
+<arg>$.error</arg>
+</arguments>
+<assign>
+<var>${responseError}</var>
+</assign>
+<msg timestamp="20200913 17:48:08.975" level="INFO">${responseError} = ['Terminated postcode not found']</msg>
+<status status="PASS" starttime="20200913 17:48:08.925" endtime="20200913 17:48:08.975"></status>
+</kw>
+<kw name="Run Keyword And Ignore Error" library="BuiltIn">
+<doc>Runs the given keyword with the given arguments and ignores possible error.</doc>
+<arguments>
+<arg>Get from list</arg>
+<arg>${responseResult}</arg>
+<arg>0</arg>
+</arguments>
+<assign>
+<var>${responseResult}</var>
+</assign>
+<kw name="Get From List" library="Collections">
+<doc>Returns the value specified with an ``index`` from ``list``.</doc>
+<arguments>
+<arg>${responseResult}</arg>
+<arg>0</arg>
+</arguments>
+<msg timestamp="20200913 17:48:08.976" level="FAIL">IndexError: Given index 0 is out of the range 0--1.</msg>
+<status status="FAIL" starttime="20200913 17:48:08.975" endtime="20200913 17:48:08.976"></status>
+</kw>
+<msg timestamp="20200913 17:48:08.976" level="INFO">${responseResult} = ('FAIL', 'IndexError: Given index 0 is out of the range 0--1.')</msg>
+<status status="PASS" starttime="20200913 17:48:08.975" endtime="20200913 17:48:08.976"></status>
+</kw>
+<kw name="Run Keyword And Ignore Error" library="BuiltIn">
+<doc>Runs the given keyword with the given arguments and ignores possible error.</doc>
+<arguments>
+<arg>Get from list</arg>
+<arg>${responseError}</arg>
+<arg>0</arg>
+</arguments>
+<assign>
+<var>${responseError}</var>
+</assign>
+<kw name="Get From List" library="Collections">
+<doc>Returns the value specified with an ``index`` from ``list``.</doc>
+<arguments>
+<arg>${responseError}</arg>
+<arg>0</arg>
+</arguments>
+<status status="PASS" starttime="20200913 17:48:08.976" endtime="20200913 17:48:08.977"></status>
+</kw>
+<msg timestamp="20200913 17:48:08.977" level="INFO">${responseError} = ('PASS', 'Terminated postcode not found')</msg>
+<status status="PASS" starttime="20200913 17:48:08.976" endtime="20200913 17:48:08.977"></status>
+</kw>
+<msg timestamp="20200913 17:48:08.977" level="INFO">${statuscode} = 404</msg>
+<msg timestamp="20200913 17:48:08.977" level="INFO">${result} = IndexError: Given index 0 is out of the range 0--1.</msg>
+<msg timestamp="20200913 17:48:08.977" level="INFO">${error} = Terminated postcode not found</msg>
+<status status="PASS" starttime="20200913 17:48:08.836" endtime="20200913 17:48:08.977"></status>
+</kw>
+<kw name="Run Keyword If" library="BuiltIn">
+<doc>Runs the given keyword with the given arguments, if ``condition`` is true.</doc>
+<arguments>
+<arg>'${error}'=='Terminated postcode not found'</arg>
+<arg>Set Variable</arg>
+<arg>${FALSE}</arg>
+<arg>ELSE</arg>
+<arg>Set Variable</arg>
+<arg>${TRUE}</arg>
+</arguments>
+<assign>
+<var>${isTerminated}</var>
+</assign>
+<kw name="Set Variable" library="BuiltIn">
+<doc>Returns the given values which can then be assigned to a variables.</doc>
+<arguments>
+<arg>${FALSE}</arg>
+</arguments>
+<status status="PASS" starttime="20200913 17:48:08.978" endtime="20200913 17:48:08.978"></status>
+</kw>
+<msg timestamp="20200913 17:48:08.978" level="INFO">${isTerminated} = False</msg>
+<status status="PASS" starttime="20200913 17:48:08.978" endtime="20200913 17:48:08.979"></status>
+</kw>
+<msg timestamp="20200913 17:48:08.979" level="INFO">${isTerminated} = False</msg>
+<status status="PASS" starttime="20200913 17:48:08.835" endtime="20200913 17:48:08.979"></status>
+</kw>
+<kw name="Should Not Be True" library="BuiltIn">
+<doc>Fails if the given condition is true.</doc>
+<arguments>
+<arg>${isTerminated}</arg>
+</arguments>
+<status status="PASS" starttime="20200913 17:48:08.980" endtime="20200913 17:48:08.980"></status>
+</kw>
+<status status="PASS" starttime="20200913 17:48:08.499" endtime="20200913 17:48:08.981" critical="yes"></status>
+</test>
+<status status="PASS" starttime="20200913 17:48:08.035" endtime="20200913 17:48:08.989"></status>
+</suite>
+<statistics>
+<total>
+<stat pass="1" fail="0">Critical Tests</stat>
+<stat pass="1" fail="0">All Tests</stat>
+</total>
+<tag>
+</tag>
+<suite>
+<stat pass="1" fail="0" id="s1" name="postcodesTest">postcodesTest</stat>
+</suite>
+</statistics>
+<errors>
+</errors>
+</robot>
