@@ -1,0 +1,598 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<robot generator="Robot 3.2.1 (Python 3.8.3 on win32)" generated="20200915 18:30:29.483" rpa="false">
+<suite id="s1" name="Exercise8" source="C:\automation\training\Robot Framework\Exercises\Exercise8\tests\Exercise8.robot">
+<kw name="Create Postcode Session" library="baseService" type="setup">
+<kw name="Create Session" library="RequestsLibrary">
+<doc>Create Session: create a HTTP session to a server</doc>
+<arguments>
+<arg>${api}</arg>
+<arg>${url}</arg>
+</arguments>
+<msg timestamp="20200915 18:30:30.071" level="INFO">Creating Session using : alias=APIUt, url=http://postcodes.io, headers={},                     cookies={}, auth=None, timeout=None, proxies=None, verify=False,                     debug=0 </msg>
+<status status="PASS" starttime="20200915 18:30:30.070" endtime="20200915 18:30:30.071"></status>
+</kw>
+<status status="PASS" starttime="20200915 18:30:30.070" endtime="20200915 18:30:30.071"></status>
+</kw>
+<test id="s1-t1" name="Find Postcode Based On Latitude And Longitude">
+<kw name="Get Random Postcode As String" library="randomPostcodes">
+<assign>
+<var>${postcode}</var>
+</assign>
+<kw name="Get Random Postcode" library="randomPostcodes">
+<arguments>
+<arg>${api}</arg>
+</arguments>
+<assign>
+<var>${statusCode}</var>
+<var>${reponseBody}</var>
+</assign>
+<kw name="Get Request" library="RequestsLibrary">
+<doc>Send a GET request on the session object found using the
+given `alias`</doc>
+<arguments>
+<arg>${api}</arg>
+<arg>${RANDOM_POSTCODES_ENDPOINT}</arg>
+</arguments>
+<assign>
+<var>${response}</var>
+</assign>
+<msg timestamp="20200915 18:30:30.205" level="INFO">GET Request : url=http://postcodes.io/random/postcodes 
+ path_url=/random/postcodes 
+ headers={'User-Agent': 'python-requests/2.24.0', 'Accept-Encoding': 'gzip, deflate', 'Accept': '*/*', 'Connection': 'keep-alive'} 
+ body=None 
+ </msg>
+<msg timestamp="20200915 18:30:30.205" level="INFO">GET Response : url=http://postcodes.io/random/postcodes 
+ status=200, reason=OK 
+ body={"status":200,"result":{"postcode":"EX1 2QU","quality":1,"eastings":293731,"northings":92550,"country":"England","nhs_ha":"South West","longitude":-3.506862,"latitude":50.722825,"european_electoral_region":"South West","primary_care_trust":"Devon","region":"South West","lsoa":"Exeter 006A","msoa":"Exeter 006","incode":"2QU","outcode":"EX1","parliamentary_constituency":"Exeter","admin_district":"Exeter","parish":"Exeter, unparished area","admin_county":"Devon","admin_ward":"Heavitree","ced":"Heavitree &amp; Whipton Barton","ccg":"NHS Devon","nuts":"Devon CC","codes":{"admin_district":"E07000041","admin_county":"E10000008","admin_ward":"E05011014","parish":"E43000052","parliamentary_constituency":"E14000698","ccg":"E38000230","ccg_id":"15N","ced":"E58000281","nuts":"UKK43"}}} 
+ </msg>
+<msg timestamp="20200915 18:30:30.205" level="INFO">${response} = &lt;Response [200]&gt;</msg>
+<status status="PASS" starttime="20200915 18:30:30.074" endtime="20200915 18:30:30.205"></status>
+</kw>
+<kw name="To Json" library="RequestsLibrary">
+<doc>Convert a string to a JSON object</doc>
+<arguments>
+<arg>${response.text}</arg>
+</arguments>
+<assign>
+<var>${responseBody}</var>
+</assign>
+<msg timestamp="20200915 18:30:30.206" level="INFO">To JSON using : content={"status":200,"result":{"postcode":"EX1 2QU","quality":1,"eastings":293731,"northings":92550,"country":"England","nhs_ha":"South West","longitude":-3.506862,"latitude":50.722825,"european_electoral_region":"South West","primary_care_trust":"Devon","region":"South West","lsoa":"Exeter 006A","msoa":"Exeter 006","incode":"2QU","outcode":"EX1","parliamentary_constituency":"Exeter","admin_district":"Exeter","parish":"Exeter, unparished area","admin_county":"Devon","admin_ward":"Heavitree","ced":"Heavitree &amp; Whipton Barton","ccg":"NHS Devon","nuts":"Devon CC","codes":{"admin_district":"E07000041","admin_county":"E10000008","admin_ward":"E05011014","parish":"E43000052","parliamentary_constituency":"E14000698","ccg":"E38000230","ccg_id":"15N","ced":"E58000281","nuts":"UKK43"}}} </msg>
+<msg timestamp="20200915 18:30:30.206" level="INFO">To JSON using : pretty_print=False </msg>
+<msg timestamp="20200915 18:30:30.206" level="INFO">${responseBody} = {'status': 200, 'result': {'postcode': 'EX1 2QU', 'quality': 1, 'eastings': 293731, 'northings': 92550, 'country': 'England', 'nhs_ha': 'South West', 'longitude': -3.506862, 'latitude': 50.722825, 'eu...</msg>
+<status status="PASS" starttime="20200915 18:30:30.205" endtime="20200915 18:30:30.206"></status>
+</kw>
+<kw name="Get Value From Json" library="JSONLibrary">
+<doc>Get Value From JSON using JSONPath</doc>
+<arguments>
+<arg>${responseBody}</arg>
+<arg>$.result</arg>
+</arguments>
+<assign>
+<var>${responseBody}</var>
+</assign>
+<msg timestamp="20200915 18:30:30.268" level="INFO">${responseBody} = [{'postcode': 'EX1 2QU', 'quality': 1, 'eastings': 293731, 'northings': 92550, 'country': 'England', 'nhs_ha': 'South West', 'longitude': -3.506862, 'latitude': 50.722825, 'european_electoral_region':...</msg>
+<status status="PASS" starttime="20200915 18:30:30.206" endtime="20200915 18:30:30.268"></status>
+</kw>
+<kw name="Get From List" library="Collections">
+<doc>Returns the value specified with an ``index`` from ``list``.</doc>
+<arguments>
+<arg>${responseBody}</arg>
+<arg>0</arg>
+</arguments>
+<assign>
+<var>${responseBody}</var>
+</assign>
+<msg timestamp="20200915 18:30:30.269" level="INFO">${responseBody} = {'postcode': 'EX1 2QU', 'quality': 1, 'eastings': 293731, 'northings': 92550, 'country': 'England', 'nhs_ha': 'South West', 'longitude': -3.506862, 'latitude': 50.722825, 'european_electoral_region': ...</msg>
+<status status="PASS" starttime="20200915 18:30:30.268" endtime="20200915 18:30:30.269"></status>
+</kw>
+<msg timestamp="20200915 18:30:30.270" level="INFO">${statusCode} = 200</msg>
+<msg timestamp="20200915 18:30:30.270" level="INFO">${reponseBody} = {'postcode': 'EX1 2QU', 'quality': 1, 'eastings': 293731, 'northings': 92550, 'country': 'England', 'nhs_ha': 'South West', 'longitude': -3.506862, 'latitude': 50.722825, 'european_electoral_region': ...</msg>
+<status status="PASS" starttime="20200915 18:30:30.073" endtime="20200915 18:30:30.270"></status>
+</kw>
+<kw name="Get Value From Json" library="JSONLibrary">
+<doc>Get Value From JSON using JSONPath</doc>
+<arguments>
+<arg>${reponseBody}</arg>
+<arg>$.postcode</arg>
+</arguments>
+<assign>
+<var>${result}</var>
+</assign>
+<msg timestamp="20200915 18:30:30.317" level="INFO">${result} = ['EX1 2QU']</msg>
+<status status="PASS" starttime="20200915 18:30:30.271" endtime="20200915 18:30:30.317"></status>
+</kw>
+<kw name="Get From List" library="Collections">
+<doc>Returns the value specified with an ``index`` from ``list``.</doc>
+<arguments>
+<arg>${result}</arg>
+<arg>0</arg>
+</arguments>
+<assign>
+<var>${postcode}</var>
+</assign>
+<msg timestamp="20200915 18:30:30.317" level="INFO">${postcode} = EX1 2QU</msg>
+<status status="PASS" starttime="20200915 18:30:30.317" endtime="20200915 18:30:30.317"></status>
+</kw>
+<msg timestamp="20200915 18:30:30.318" level="INFO">${postcode} = EX1 2QU</msg>
+<status status="PASS" starttime="20200915 18:30:30.072" endtime="20200915 18:30:30.318"></status>
+</kw>
+<kw name="Get Info On Postcode" library="postcodes">
+<arguments>
+<arg>${postcode}</arg>
+</arguments>
+<assign>
+<var>${info}</var>
+</assign>
+<kw name="Get Request" library="RequestsLibrary">
+<doc>Send a GET request on the session object found using the
+given `alias`</doc>
+<arguments>
+<arg>${api}</arg>
+<arg>${POSTCODES_ENDPOINT}/${postcode}</arg>
+</arguments>
+<assign>
+<var>${response}</var>
+</assign>
+<msg timestamp="20200915 18:30:30.361" level="INFO">GET Request : url=http://postcodes.io/postcodes/EX1%202QU 
+ path_url=/postcodes/EX1%202QU 
+ headers={'User-Agent': 'python-requests/2.24.0', 'Accept-Encoding': 'gzip, deflate', 'Accept': '*/*', 'Connection': 'keep-alive'} 
+ body=None 
+ </msg>
+<msg timestamp="20200915 18:30:30.361" level="INFO">GET Response : url=http://postcodes.io/postcodes/EX1%202QU 
+ status=200, reason=OK 
+ body={"status":200,"result":{"postcode":"EX1 2QU","quality":1,"eastings":293731,"northings":92550,"country":"England","nhs_ha":"South West","longitude":-3.506862,"latitude":50.722825,"european_electoral_region":"South West","primary_care_trust":"Devon","region":"South West","lsoa":"Exeter 006A","msoa":"Exeter 006","incode":"2QU","outcode":"EX1","parliamentary_constituency":"Exeter","admin_district":"Exeter","parish":"Exeter, unparished area","admin_county":"Devon","admin_ward":"Heavitree","ced":"Heavitree &amp; Whipton Barton","ccg":"NHS Devon","nuts":"Devon CC","codes":{"admin_district":"E07000041","admin_county":"E10000008","admin_ward":"E05011014","parish":"E43000052","parliamentary_constituency":"E14000698","ccg":"E38000230","ccg_id":"15N","ced":"E58000281","nuts":"UKK43"}}} 
+ </msg>
+<msg timestamp="20200915 18:30:30.362" level="INFO">${response} = &lt;Response [200]&gt;</msg>
+<status status="PASS" starttime="20200915 18:30:30.320" endtime="20200915 18:30:30.362"></status>
+</kw>
+<kw name="To Json" library="RequestsLibrary">
+<doc>Convert a string to a JSON object</doc>
+<arguments>
+<arg>${response.text}</arg>
+</arguments>
+<assign>
+<var>${response}</var>
+</assign>
+<msg timestamp="20200915 18:30:30.363" level="INFO">To JSON using : content={"status":200,"result":{"postcode":"EX1 2QU","quality":1,"eastings":293731,"northings":92550,"country":"England","nhs_ha":"South West","longitude":-3.506862,"latitude":50.722825,"european_electoral_region":"South West","primary_care_trust":"Devon","region":"South West","lsoa":"Exeter 006A","msoa":"Exeter 006","incode":"2QU","outcode":"EX1","parliamentary_constituency":"Exeter","admin_district":"Exeter","parish":"Exeter, unparished area","admin_county":"Devon","admin_ward":"Heavitree","ced":"Heavitree &amp; Whipton Barton","ccg":"NHS Devon","nuts":"Devon CC","codes":{"admin_district":"E07000041","admin_county":"E10000008","admin_ward":"E05011014","parish":"E43000052","parliamentary_constituency":"E14000698","ccg":"E38000230","ccg_id":"15N","ced":"E58000281","nuts":"UKK43"}}} </msg>
+<msg timestamp="20200915 18:30:30.363" level="INFO">To JSON using : pretty_print=False </msg>
+<msg timestamp="20200915 18:30:30.364" level="INFO">${response} = {'status': 200, 'result': {'postcode': 'EX1 2QU', 'quality': 1, 'eastings': 293731, 'northings': 92550, 'country': 'England', 'nhs_ha': 'South West', 'longitude': -3.506862, 'latitude': 50.722825, 'eu...</msg>
+<status status="PASS" starttime="20200915 18:30:30.362" endtime="20200915 18:30:30.364"></status>
+</kw>
+<kw name="Get Value From Json" library="JSONLibrary">
+<doc>Get Value From JSON using JSONPath</doc>
+<arguments>
+<arg>${response}</arg>
+<arg>$.result</arg>
+</arguments>
+<assign>
+<var>${result}</var>
+</assign>
+<msg timestamp="20200915 18:30:30.426" level="INFO">${result} = [{'postcode': 'EX1 2QU', 'quality': 1, 'eastings': 293731, 'northings': 92550, 'country': 'England', 'nhs_ha': 'South West', 'longitude': -3.506862, 'latitude': 50.722825, 'european_electoral_region':...</msg>
+<status status="PASS" starttime="20200915 18:30:30.364" endtime="20200915 18:30:30.426"></status>
+</kw>
+<kw name="Get From List" library="Collections">
+<doc>Returns the value specified with an ``index`` from ``list``.</doc>
+<arguments>
+<arg>${result}</arg>
+<arg>0</arg>
+</arguments>
+<assign>
+<var>${result}</var>
+</assign>
+<msg timestamp="20200915 18:30:30.427" level="INFO">${result} = {'postcode': 'EX1 2QU', 'quality': 1, 'eastings': 293731, 'northings': 92550, 'country': 'England', 'nhs_ha': 'South West', 'longitude': -3.506862, 'latitude': 50.722825, 'european_electoral_region': ...</msg>
+<status status="PASS" starttime="20200915 18:30:30.426" endtime="20200915 18:30:30.427"></status>
+</kw>
+<msg timestamp="20200915 18:30:30.428" level="INFO">${info} = {'postcode': 'EX1 2QU', 'quality': 1, 'eastings': 293731, 'northings': 92550, 'country': 'England', 'nhs_ha': 'South West', 'longitude': -3.506862, 'latitude': 50.722825, 'european_electoral_region': ...</msg>
+<status status="PASS" starttime="20200915 18:30:30.318" endtime="20200915 18:30:30.428"></status>
+</kw>
+<kw name="Get Value From Json" library="JSONLibrary">
+<doc>Get Value From JSON using JSONPath</doc>
+<arguments>
+<arg>${info}</arg>
+<arg>$.longitude</arg>
+</arguments>
+<assign>
+<var>${longitude}</var>
+</assign>
+<msg timestamp="20200915 18:30:30.490" level="INFO">${longitude} = [-3.506862]</msg>
+<status status="PASS" starttime="20200915 18:30:30.429" endtime="20200915 18:30:30.490"></status>
+</kw>
+<kw name="Get From List" library="Collections">
+<doc>Returns the value specified with an ``index`` from ``list``.</doc>
+<arguments>
+<arg>${longitude}</arg>
+<arg>0</arg>
+</arguments>
+<assign>
+<var>${longitude}</var>
+</assign>
+<msg timestamp="20200915 18:30:30.492" level="INFO">${longitude} = -3.506862</msg>
+<status status="PASS" starttime="20200915 18:30:30.491" endtime="20200915 18:30:30.492"></status>
+</kw>
+<kw name="Get Value From Json" library="JSONLibrary">
+<doc>Get Value From JSON using JSONPath</doc>
+<arguments>
+<arg>${info}</arg>
+<arg>$.latitude</arg>
+</arguments>
+<assign>
+<var>${latitude}</var>
+</assign>
+<msg timestamp="20200915 18:30:30.567" level="INFO">${latitude} = [50.722825]</msg>
+<status status="PASS" starttime="20200915 18:30:30.493" endtime="20200915 18:30:30.567"></status>
+</kw>
+<kw name="Get From List" library="Collections">
+<doc>Returns the value specified with an ``index`` from ``list``.</doc>
+<arguments>
+<arg>${latitude}</arg>
+<arg>0</arg>
+</arguments>
+<assign>
+<var>${latitude}</var>
+</assign>
+<msg timestamp="20200915 18:30:30.569" level="INFO">${latitude} = 50.722825</msg>
+<status status="PASS" starttime="20200915 18:30:30.568" endtime="20200915 18:30:30.569"></status>
+</kw>
+<kw name="Get Nearest Postcodes On Latitude And Longitude" library="postcodes">
+<arguments>
+<arg>${latitude}</arg>
+<arg>${longitude}</arg>
+</arguments>
+<assign>
+<var>@{postcodesList}</var>
+</assign>
+<kw name="Get Request" library="RequestsLibrary">
+<doc>Send a GET request on the session object found using the
+given `alias`</doc>
+<arguments>
+<arg>${api}</arg>
+<arg>${POSTCODES_ENDPOINT}?lon=${longitude}&amp;lat=${latitude}</arg>
+</arguments>
+<assign>
+<var>${response}</var>
+</assign>
+<msg timestamp="20200915 18:30:30.608" level="INFO">GET Request : url=http://postcodes.io/postcodes?lon=-3.506862&amp;lat=50.722825 
+ path_url=/postcodes?lon=-3.506862&amp;lat=50.722825 
+ headers={'User-Agent': 'python-requests/2.24.0', 'Accept-Encoding': 'gzip, deflate', 'Accept': '*/*', 'Connection': 'keep-alive'} 
+ body=None 
+ </msg>
+<msg timestamp="20200915 18:30:30.608" level="INFO">GET Response : url=http://postcodes.io/postcodes?lon=-3.506862&amp;lat=50.722825 
+ status=200, reason=OK 
+ body={"status":200,"result":[{"postcode":"EX1 2QU","quality":1,"eastings":293731,"northings":92550,"country":"England","nhs_ha":"South West","longitude":-3.506862,"latitude":50.722825,"european_electoral_region":"South West","primary_care_trust":"Devon","region":"South West","lsoa":"Exeter 006A","msoa":"Exeter 006","incode":"2QU","outcode":"EX1","parliamentary_constituency":"Exeter","admin_district":"Exeter","parish":"Exeter, unparished area","admin_county":"Devon","admin_ward":"Heavitree","ced":"Heavitree &amp; Whipton Barton","ccg":"NHS Devon","nuts":"Devon CC","codes":{"admin_district":"E07000041","admin_county":"E10000008","admin_ward":"E05011014","parish":"E43000052","parliamentary_constituency":"E14000698","ccg":"E38000230","ccg_id":"15N","ced":"E58000281","nuts":"UKK43"},"distance":0},{"postcode":"EX1 2RD","quality":1,"eastings":293742,"northings":92599,"country":"England","nhs_ha":"South West","longitude":-3.50672,"latitude":50.723267,"european_electoral_region":"South West","primary_care_trust":"Devon","region":"South West","lsoa":"Exeter 006B","msoa":"Exeter 006","incode":"2RD","outcode":"EX1","parliamentary_constituency":"Exeter","admin_district":"Exeter","parish":"Exeter, unparished area","admin_county":"Devon","admin_ward":"Heavitree","ced":"Heavitree &amp; Whipton Barton","ccg":"NHS Devon","nuts":"Devon CC","codes":{"admin_district":"E07000041","admin_county":"E10000008","admin_ward":"E05011014","parish":"E43000052","parliamentary_constituency":"E14000698","ccg":"E38000230","ccg_id":"15N","ced":"E58000281","nuts":"UKK43"},"distance":50.18142854},{"postcode":"EX1 2RE","quality":1,"eastings":293777,"northings":92574,"country":"England","nhs_ha":"South West","longitude":-3.506217,"latitude":50.723049,"european_electoral_region":"South West","primary_care_trust":"Devon","region":"South West","lsoa":"Exeter 006B","msoa":"Exeter 006","incode":"2RE","outcode":"EX1","parliamentary_constituency":"Exeter","admin_district":"Exeter","parish":"Exeter, unparished area","admin_county":"Devon","admin_ward":"Heavitree","ced":"Heavitree &amp; Whipton Barton","ccg":"NHS Devon","nuts":"Devon CC","codes":{"admin_district":"E07000041","admin_county":"E10000008","admin_ward":"E05011014","parish":"E43000052","parliamentary_constituency":"E14000698","ccg":"E38000230","ccg_id":"15N","ced":"E58000281","nuts":"UKK43"},"distance":51.91746136},{"postcode":"EX1 2QT","quality":1,"eastings":293760,"northings":92506,"country":"England","nhs_ha":"South West","longitude":-3.506439,"latitude":50.722435,"european_electoral_region":"South West","primary_care_trust":"Devon","region":"South West","lsoa":"Exeter 006B","msoa":"Exeter 006","incode":"2QT","outcode":"EX1","parliamentary_constituency":"Exeter","admin_district":"Exeter","parish":"Exeter, unparished area","admin_county":"Devon","admin_ward":"Heavitree","ced":"Heavitree &amp; Whipton Barton","ccg":"NHS Devon","nuts":"Devon CC","codes":{"admin_district":"E07000041","admin_county":"E10000008","admin_ward":"E05011014","parish":"E43000052","parliamentary_constituency":"E14000698","ccg":"E38000230","ccg_id":"15N","ced":"E58000281","nuts":"UKK43"},"distance":52.67325828},{"postcode":"EX1 2QH","quality":1,"eastings":293772,"northings":92473,"country":"England","nhs_ha":"South West","longitude":-3.506259,"latitude":50.72214,"european_electoral_region":"South West","primary_care_trust":"Devon","region":"South West","lsoa":"Exeter 006B","msoa":"Exeter 006","incode":"2QH","outcode":"EX1","parliamentary_constituency":"Exeter","admin_district":"Exeter","parish":"Exeter, unparished area","admin_county":"Devon","admin_ward":"Heavitree","ced":"Heavitree &amp; Whipton Barton","ccg":"NHS Devon","nuts":"Devon CC","codes":{"admin_district":"E07000041","admin_county":"E10000008","admin_ward":"E05011014","parish":"E43000052","parliamentary_constituency":"E14000698","ccg":"E38000230","ccg_id":"15N","ced":"E58000281","nuts":"UKK43"},"distance":87.29156127},{"postcode":"EX1 2RQ","quality":1,"eastings":293792,"northings":92487,"country":"England","nhs_ha":"South West","longitude":-3.50598,"latitude":50.72227,"european_electoral_region":"South West","primary_care_trust":"Devon","region":"South West","lsoa":"Exeter 006A","msoa":"Exeter 006","incode":"2RQ","outcode":"EX1","parliamentary_constituency":"Exeter","admin_district":"Exeter","parish":"Exeter, unparished area","admin_county":"Devon","admin_ward":"Heavitree","ced":"Heavitree &amp; Whipton Barton","ccg":"NHS Devon","nuts":"Devon CC","codes":{"admin_district":"E07000041","admin_county":"E10000008","admin_ward":"E05011014","parish":"E43000052","parliamentary_constituency":"E14000698","ccg":"E38000230","ccg_id":"15N","ced":"E58000281","nuts":"UKK43"},"distance":87.69814566},{"postcode":"EX1 2AQ","quality":1,"eastings":293636,"northings":92576,"country":"England","nhs_ha":"South West","longitude":-3.508215,"latitude":50.723041,"european_electoral_region":"South West","primary_care_trust":"Devon","region":"South West","lsoa":"Exeter 006A","msoa":"Exeter 006","incode":"2AQ","outcode":"EX1","parliamentary_constituency":"Exeter","admin_district":"Exeter","parish":"Exeter, unparished area","admin_county":"Devon","admin_ward":"Heavitree","ced":"Heavitree &amp; Whipton Barton","ccg":"NHS Devon","nuts":"Devon CC","codes":{"admin_district":"E07000041","admin_county":"E10000008","admin_ward":"E05011014","parish":"E43000052","parliamentary_constituency":"E14000698","ccg":"E38000230","ccg_id":"15N","ced":"E58000281","nuts":"UKK43"},"distance":98.51721033},{"postcode":"EX1 2RG","quality":1,"eastings":293818,"northings":92503,"country":"England","nhs_ha":"South West","longitude":-3.505616,"latitude":50.722418,"european_electoral_region":"South West","primary_care_trust":"Devon","region":"South West","lsoa":"Exeter 006A","msoa":"Exeter 006","incode":"2RG","outcode":"EX1","parliamentary_constituency":"Exeter","admin_district":"Exeter","parish":"Exeter, unparished area","admin_county":"Devon","admin_ward":"Heavitree","ced":"Heavitree &amp; Whipton Barton","ccg":"NHS Devon","nuts":"Devon CC","codes":{"admin_district":"E07000041","admin_county":"E10000008","admin_ward":"E05011014","parish":"E43000052","parliamentary_constituency":"E14000698","ccg":"E38000230","ccg_id":"15N","ced":"E58000281","nuts":"UKK43"},"distance":98.95241005}]} 
+ </msg>
+<msg timestamp="20200915 18:30:30.609" level="INFO">${response} = &lt;Response [200]&gt;</msg>
+<status status="PASS" starttime="20200915 18:30:30.571" endtime="20200915 18:30:30.609"></status>
+</kw>
+<kw name="To Json" library="RequestsLibrary">
+<doc>Convert a string to a JSON object</doc>
+<arguments>
+<arg>${response.text}</arg>
+</arguments>
+<assign>
+<var>${response}</var>
+</assign>
+<msg timestamp="20200915 18:30:30.610" level="INFO">To JSON using : content={"status":200,"result":[{"postcode":"EX1 2QU","quality":1,"eastings":293731,"northings":92550,"country":"England","nhs_ha":"South West","longitude":-3.506862,"latitude":50.722825,"european_electoral_region":"South West","primary_care_trust":"Devon","region":"South West","lsoa":"Exeter 006A","msoa":"Exeter 006","incode":"2QU","outcode":"EX1","parliamentary_constituency":"Exeter","admin_district":"Exeter","parish":"Exeter, unparished area","admin_county":"Devon","admin_ward":"Heavitree","ced":"Heavitree &amp; Whipton Barton","ccg":"NHS Devon","nuts":"Devon CC","codes":{"admin_district":"E07000041","admin_county":"E10000008","admin_ward":"E05011014","parish":"E43000052","parliamentary_constituency":"E14000698","ccg":"E38000230","ccg_id":"15N","ced":"E58000281","nuts":"UKK43"},"distance":0},{"postcode":"EX1 2RD","quality":1,"eastings":293742,"northings":92599,"country":"England","nhs_ha":"South West","longitude":-3.50672,"latitude":50.723267,"european_electoral_region":"South West","primary_care_trust":"Devon","region":"South West","lsoa":"Exeter 006B","msoa":"Exeter 006","incode":"2RD","outcode":"EX1","parliamentary_constituency":"Exeter","admin_district":"Exeter","parish":"Exeter, unparished area","admin_county":"Devon","admin_ward":"Heavitree","ced":"Heavitree &amp; Whipton Barton","ccg":"NHS Devon","nuts":"Devon CC","codes":{"admin_district":"E07000041","admin_county":"E10000008","admin_ward":"E05011014","parish":"E43000052","parliamentary_constituency":"E14000698","ccg":"E38000230","ccg_id":"15N","ced":"E58000281","nuts":"UKK43"},"distance":50.18142854},{"postcode":"EX1 2RE","quality":1,"eastings":293777,"northings":92574,"country":"England","nhs_ha":"South West","longitude":-3.506217,"latitude":50.723049,"european_electoral_region":"South West","primary_care_trust":"Devon","region":"South West","lsoa":"Exeter 006B","msoa":"Exeter 006","incode":"2RE","outcode":"EX1","parliamentary_constituency":"Exeter","admin_district":"Exeter","parish":"Exeter, unparished area","admin_county":"Devon","admin_ward":"Heavitree","ced":"Heavitree &amp; Whipton Barton","ccg":"NHS Devon","nuts":"Devon CC","codes":{"admin_district":"E07000041","admin_county":"E10000008","admin_ward":"E05011014","parish":"E43000052","parliamentary_constituency":"E14000698","ccg":"E38000230","ccg_id":"15N","ced":"E58000281","nuts":"UKK43"},"distance":51.91746136},{"postcode":"EX1 2QT","quality":1,"eastings":293760,"northings":92506,"country":"England","nhs_ha":"South West","longitude":-3.506439,"latitude":50.722435,"european_electoral_region":"South West","primary_care_trust":"Devon","region":"South West","lsoa":"Exeter 006B","msoa":"Exeter 006","incode":"2QT","outcode":"EX1","parliamentary_constituency":"Exeter","admin_district":"Exeter","parish":"Exeter, unparished area","admin_county":"Devon","admin_ward":"Heavitree","ced":"Heavitree &amp; Whipton Barton","ccg":"NHS Devon","nuts":"Devon CC","codes":{"admin_district":"E07000041","admin_county":"E10000008","admin_ward":"E05011014","parish":"E43000052","parliamentary_constituency":"E14000698","ccg":"E38000230","ccg_id":"15N","ced":"E58000281","nuts":"UKK43"},"distance":52.67325828},{"postcode":"EX1 2QH","quality":1,"eastings":293772,"northings":92473,"country":"England","nhs_ha":"South West","longitude":-3.506259,"latitude":50.72214,"european_electoral_region":"South West","primary_care_trust":"Devon","region":"South West","lsoa":"Exeter 006B","msoa":"Exeter 006","incode":"2QH","outcode":"EX1","parliamentary_constituency":"Exeter","admin_district":"Exeter","parish":"Exeter, unparished area","admin_county":"Devon","admin_ward":"Heavitree","ced":"Heavitree &amp; Whipton Barton","ccg":"NHS Devon","nuts":"Devon CC","codes":{"admin_district":"E07000041","admin_county":"E10000008","admin_ward":"E05011014","parish":"E43000052","parliamentary_constituency":"E14000698","ccg":"E38000230","ccg_id":"15N","ced":"E58000281","nuts":"UKK43"},"distance":87.29156127},{"postcode":"EX1 2RQ","quality":1,"eastings":293792,"northings":92487,"country":"England","nhs_ha":"South West","longitude":-3.50598,"latitude":50.72227,"european_electoral_region":"South West","primary_care_trust":"Devon","region":"South West","lsoa":"Exeter 006A","msoa":"Exeter 006","incode":"2RQ","outcode":"EX1","parliamentary_constituency":"Exeter","admin_district":"Exeter","parish":"Exeter, unparished area","admin_county":"Devon","admin_ward":"Heavitree","ced":"Heavitree &amp; Whipton Barton","ccg":"NHS Devon","nuts":"Devon CC","codes":{"admin_district":"E07000041","admin_county":"E10000008","admin_ward":"E05011014","parish":"E43000052","parliamentary_constituency":"E14000698","ccg":"E38000230","ccg_id":"15N","ced":"E58000281","nuts":"UKK43"},"distance":87.69814566},{"postcode":"EX1 2AQ","quality":1,"eastings":293636,"northings":92576,"country":"England","nhs_ha":"South West","longitude":-3.508215,"latitude":50.723041,"european_electoral_region":"South West","primary_care_trust":"Devon","region":"South West","lsoa":"Exeter 006A","msoa":"Exeter 006","incode":"2AQ","outcode":"EX1","parliamentary_constituency":"Exeter","admin_district":"Exeter","parish":"Exeter, unparished area","admin_county":"Devon","admin_ward":"Heavitree","ced":"Heavitree &amp; Whipton Barton","ccg":"NHS Devon","nuts":"Devon CC","codes":{"admin_district":"E07000041","admin_county":"E10000008","admin_ward":"E05011014","parish":"E43000052","parliamentary_constituency":"E14000698","ccg":"E38000230","ccg_id":"15N","ced":"E58000281","nuts":"UKK43"},"distance":98.51721033},{"postcode":"EX1 2RG","quality":1,"eastings":293818,"northings":92503,"country":"England","nhs_ha":"South West","longitude":-3.505616,"latitude":50.722418,"european_electoral_region":"South West","primary_care_trust":"Devon","region":"South West","lsoa":"Exeter 006A","msoa":"Exeter 006","incode":"2RG","outcode":"EX1","parliamentary_constituency":"Exeter","admin_district":"Exeter","parish":"Exeter, unparished area","admin_county":"Devon","admin_ward":"Heavitree","ced":"Heavitree &amp; Whipton Barton","ccg":"NHS Devon","nuts":"Devon CC","codes":{"admin_district":"E07000041","admin_county":"E10000008","admin_ward":"E05011014","parish":"E43000052","parliamentary_constituency":"E14000698","ccg":"E38000230","ccg_id":"15N","ced":"E58000281","nuts":"UKK43"},"distance":98.95241005}]} </msg>
+<msg timestamp="20200915 18:30:30.610" level="INFO">To JSON using : pretty_print=False </msg>
+<msg timestamp="20200915 18:30:30.611" level="INFO">${response} = {'status': 200, 'result': [{'postcode': 'EX1 2QU', 'quality': 1, 'eastings': 293731, 'northings': 92550, 'country': 'England', 'nhs_ha': 'South West', 'longitude': -3.506862, 'latitude': 50.722825, 'e...</msg>
+<status status="PASS" starttime="20200915 18:30:30.609" endtime="20200915 18:30:30.612"></status>
+</kw>
+<kw name="Get Value From Json" library="JSONLibrary">
+<doc>Get Value From JSON using JSONPath</doc>
+<arguments>
+<arg>${response}</arg>
+<arg>$.result</arg>
+</arguments>
+<assign>
+<var>${result}</var>
+</assign>
+<msg timestamp="20200915 18:30:30.663" level="INFO">${result} = [[{'postcode': 'EX1 2QU', 'quality': 1, 'eastings': 293731, 'northings': 92550, 'country': 'England', 'nhs_ha': 'South West', 'longitude': -3.506862, 'latitude': 50.722825, 'european_electoral_region'...</msg>
+<status status="PASS" starttime="20200915 18:30:30.612" endtime="20200915 18:30:30.663"></status>
+</kw>
+<kw name="Get From List" library="Collections">
+<doc>Returns the value specified with an ``index`` from ``list``.</doc>
+<arguments>
+<arg>${result}</arg>
+<arg>0</arg>
+</arguments>
+<assign>
+<var>${result}</var>
+</assign>
+<msg timestamp="20200915 18:30:30.664" level="INFO">${result} = [{'postcode': 'EX1 2QU', 'quality': 1, 'eastings': 293731, 'northings': 92550, 'country': 'England', 'nhs_ha': 'South West', 'longitude': -3.506862, 'latitude': 50.722825, 'european_electoral_region':...</msg>
+<status status="PASS" starttime="20200915 18:30:30.663" endtime="20200915 18:30:30.664"></status>
+</kw>
+<msg timestamp="20200915 18:30:30.664" level="INFO">@{postcodesList} = [ {'postcode': 'EX1 2QU', 'quality': 1, 'eastings': 293731, 'northings': 92550, 'country': 'England', 'nhs_ha': 'South West', 'longitude': -3.506862, 'latitude': 50.722825, 'european_electoral_region'...</msg>
+<status status="PASS" starttime="20200915 18:30:30.569" endtime="20200915 18:30:30.664"></status>
+</kw>
+<kw name="${postcode} IN [ @{postcodesList} ]" type="for">
+<kw name="${postcode} = {'postcode': 'EX1 2QU', 'quality': 1, 'eastings': 293731, 'northings': 92550, 'country': 'England', 'nhs_ha': 'South West', 'longitude': -3.506862, 'latitude': 50.722825, 'european_electoral_region': ..." type="foritem">
+<kw name="Get Value From Json" library="JSONLibrary">
+<doc>Get Value From JSON using JSONPath</doc>
+<arguments>
+<arg>${postcode}</arg>
+<arg>$.postcode</arg>
+</arguments>
+<assign>
+<var>${postcodeAsString}</var>
+</assign>
+<msg timestamp="20200915 18:30:30.724" level="INFO">${postcodeAsString} = ['EX1 2QU']</msg>
+<status status="PASS" starttime="20200915 18:30:30.666" endtime="20200915 18:30:30.724"></status>
+</kw>
+<kw name="Get From List" library="Collections">
+<doc>Returns the value specified with an ``index`` from ``list``.</doc>
+<arguments>
+<arg>${postcodeAsString}</arg>
+<arg>0</arg>
+</arguments>
+<assign>
+<var>${postcodeAsString}</var>
+</assign>
+<msg timestamp="20200915 18:30:30.724" level="INFO">${postcodeAsString} = EX1 2QU</msg>
+<status status="PASS" starttime="20200915 18:30:30.724" endtime="20200915 18:30:30.724"></status>
+</kw>
+<kw name="Log To Console" library="BuiltIn">
+<doc>Logs the given message to the console.</doc>
+<arguments>
+<arg>${postcodeAsString}</arg>
+</arguments>
+<status status="PASS" starttime="20200915 18:30:30.725" endtime="20200915 18:30:30.725"></status>
+</kw>
+<status status="PASS" starttime="20200915 18:30:30.665" endtime="20200915 18:30:30.726"></status>
+</kw>
+<kw name="${postcode} = {'postcode': 'EX1 2RD', 'quality': 1, 'eastings': 293742, 'northings': 92599, 'country': 'England', 'nhs_ha': 'South West', 'longitude': -3.50672, 'latitude': 50.723267, 'european_electoral_region': '..." type="foritem">
+<kw name="Get Value From Json" library="JSONLibrary">
+<doc>Get Value From JSON using JSONPath</doc>
+<arguments>
+<arg>${postcode}</arg>
+<arg>$.postcode</arg>
+</arguments>
+<assign>
+<var>${postcodeAsString}</var>
+</assign>
+<msg timestamp="20200915 18:30:30.788" level="INFO">${postcodeAsString} = ['EX1 2RD']</msg>
+<status status="PASS" starttime="20200915 18:30:30.726" endtime="20200915 18:30:30.788"></status>
+</kw>
+<kw name="Get From List" library="Collections">
+<doc>Returns the value specified with an ``index`` from ``list``.</doc>
+<arguments>
+<arg>${postcodeAsString}</arg>
+<arg>0</arg>
+</arguments>
+<assign>
+<var>${postcodeAsString}</var>
+</assign>
+<msg timestamp="20200915 18:30:30.788" level="INFO">${postcodeAsString} = EX1 2RD</msg>
+<status status="PASS" starttime="20200915 18:30:30.788" endtime="20200915 18:30:30.789"></status>
+</kw>
+<kw name="Log To Console" library="BuiltIn">
+<doc>Logs the given message to the console.</doc>
+<arguments>
+<arg>${postcodeAsString}</arg>
+</arguments>
+<status status="PASS" starttime="20200915 18:30:30.789" endtime="20200915 18:30:30.789"></status>
+</kw>
+<status status="PASS" starttime="20200915 18:30:30.726" endtime="20200915 18:30:30.790"></status>
+</kw>
+<kw name="${postcode} = {'postcode': 'EX1 2RE', 'quality': 1, 'eastings': 293777, 'northings': 92574, 'country': 'England', 'nhs_ha': 'South West', 'longitude': -3.506217, 'latitude': 50.723049, 'european_electoral_region': ..." type="foritem">
+<kw name="Get Value From Json" library="JSONLibrary">
+<doc>Get Value From JSON using JSONPath</doc>
+<arguments>
+<arg>${postcode}</arg>
+<arg>$.postcode</arg>
+</arguments>
+<assign>
+<var>${postcodeAsString}</var>
+</assign>
+<msg timestamp="20200915 18:30:30.860" level="INFO">${postcodeAsString} = ['EX1 2RE']</msg>
+<status status="PASS" starttime="20200915 18:30:30.790" endtime="20200915 18:30:30.860"></status>
+</kw>
+<kw name="Get From List" library="Collections">
+<doc>Returns the value specified with an ``index`` from ``list``.</doc>
+<arguments>
+<arg>${postcodeAsString}</arg>
+<arg>0</arg>
+</arguments>
+<assign>
+<var>${postcodeAsString}</var>
+</assign>
+<msg timestamp="20200915 18:30:30.861" level="INFO">${postcodeAsString} = EX1 2RE</msg>
+<status status="PASS" starttime="20200915 18:30:30.860" endtime="20200915 18:30:30.861"></status>
+</kw>
+<kw name="Log To Console" library="BuiltIn">
+<doc>Logs the given message to the console.</doc>
+<arguments>
+<arg>${postcodeAsString}</arg>
+</arguments>
+<status status="PASS" starttime="20200915 18:30:30.862" endtime="20200915 18:30:30.863"></status>
+</kw>
+<status status="PASS" starttime="20200915 18:30:30.790" endtime="20200915 18:30:30.863"></status>
+</kw>
+<kw name="${postcode} = {'postcode': 'EX1 2QT', 'quality': 1, 'eastings': 293760, 'northings': 92506, 'country': 'England', 'nhs_ha': 'South West', 'longitude': -3.506439, 'latitude': 50.722435, 'european_electoral_region': ..." type="foritem">
+<kw name="Get Value From Json" library="JSONLibrary">
+<doc>Get Value From JSON using JSONPath</doc>
+<arguments>
+<arg>${postcode}</arg>
+<arg>$.postcode</arg>
+</arguments>
+<assign>
+<var>${postcodeAsString}</var>
+</assign>
+<msg timestamp="20200915 18:30:30.940" level="INFO">${postcodeAsString} = ['EX1 2QT']</msg>
+<status status="PASS" starttime="20200915 18:30:30.864" endtime="20200915 18:30:30.940"></status>
+</kw>
+<kw name="Get From List" library="Collections">
+<doc>Returns the value specified with an ``index`` from ``list``.</doc>
+<arguments>
+<arg>${postcodeAsString}</arg>
+<arg>0</arg>
+</arguments>
+<assign>
+<var>${postcodeAsString}</var>
+</assign>
+<msg timestamp="20200915 18:30:30.941" level="INFO">${postcodeAsString} = EX1 2QT</msg>
+<status status="PASS" starttime="20200915 18:30:30.940" endtime="20200915 18:30:30.941"></status>
+</kw>
+<kw name="Log To Console" library="BuiltIn">
+<doc>Logs the given message to the console.</doc>
+<arguments>
+<arg>${postcodeAsString}</arg>
+</arguments>
+<status status="PASS" starttime="20200915 18:30:30.941" endtime="20200915 18:30:30.942"></status>
+</kw>
+<status status="PASS" starttime="20200915 18:30:30.863" endtime="20200915 18:30:30.942"></status>
+</kw>
+<kw name="${postcode} = {'postcode': 'EX1 2QH', 'quality': 1, 'eastings': 293772, 'northings': 92473, 'country': 'England', 'nhs_ha': 'South West', 'longitude': -3.506259, 'latitude': 50.72214, 'european_electoral_region': '..." type="foritem">
+<kw name="Get Value From Json" library="JSONLibrary">
+<doc>Get Value From JSON using JSONPath</doc>
+<arguments>
+<arg>${postcode}</arg>
+<arg>$.postcode</arg>
+</arguments>
+<assign>
+<var>${postcodeAsString}</var>
+</assign>
+<msg timestamp="20200915 18:30:31.005" level="INFO">${postcodeAsString} = ['EX1 2QH']</msg>
+<status status="PASS" starttime="20200915 18:30:30.942" endtime="20200915 18:30:31.005"></status>
+</kw>
+<kw name="Get From List" library="Collections">
+<doc>Returns the value specified with an ``index`` from ``list``.</doc>
+<arguments>
+<arg>${postcodeAsString}</arg>
+<arg>0</arg>
+</arguments>
+<assign>
+<var>${postcodeAsString}</var>
+</assign>
+<msg timestamp="20200915 18:30:31.005" level="INFO">${postcodeAsString} = EX1 2QH</msg>
+<status status="PASS" starttime="20200915 18:30:31.005" endtime="20200915 18:30:31.005"></status>
+</kw>
+<kw name="Log To Console" library="BuiltIn">
+<doc>Logs the given message to the console.</doc>
+<arguments>
+<arg>${postcodeAsString}</arg>
+</arguments>
+<status status="PASS" starttime="20200915 18:30:31.005" endtime="20200915 18:30:31.006"></status>
+</kw>
+<status status="PASS" starttime="20200915 18:30:30.942" endtime="20200915 18:30:31.006"></status>
+</kw>
+<kw name="${postcode} = {'postcode': 'EX1 2RQ', 'quality': 1, 'eastings': 293792, 'northings': 92487, 'country': 'England', 'nhs_ha': 'South West', 'longitude': -3.50598, 'latitude': 50.72227, 'european_electoral_region': 'S..." type="foritem">
+<kw name="Get Value From Json" library="JSONLibrary">
+<doc>Get Value From JSON using JSONPath</doc>
+<arguments>
+<arg>${postcode}</arg>
+<arg>$.postcode</arg>
+</arguments>
+<assign>
+<var>${postcodeAsString}</var>
+</assign>
+<msg timestamp="20200915 18:30:31.066" level="INFO">${postcodeAsString} = ['EX1 2RQ']</msg>
+<status status="PASS" starttime="20200915 18:30:31.007" endtime="20200915 18:30:31.066"></status>
+</kw>
+<kw name="Get From List" library="Collections">
+<doc>Returns the value specified with an ``index`` from ``list``.</doc>
+<arguments>
+<arg>${postcodeAsString}</arg>
+<arg>0</arg>
+</arguments>
+<assign>
+<var>${postcodeAsString}</var>
+</assign>
+<msg timestamp="20200915 18:30:31.067" level="INFO">${postcodeAsString} = EX1 2RQ</msg>
+<status status="PASS" starttime="20200915 18:30:31.067" endtime="20200915 18:30:31.067"></status>
+</kw>
+<kw name="Log To Console" library="BuiltIn">
+<doc>Logs the given message to the console.</doc>
+<arguments>
+<arg>${postcodeAsString}</arg>
+</arguments>
+<status status="PASS" starttime="20200915 18:30:31.067" endtime="20200915 18:30:31.068"></status>
+</kw>
+<status status="PASS" starttime="20200915 18:30:31.007" endtime="20200915 18:30:31.068"></status>
+</kw>
+<kw name="${postcode} = {'postcode': 'EX1 2AQ', 'quality': 1, 'eastings': 293636, 'northings': 92576, 'country': 'England', 'nhs_ha': 'South West', 'longitude': -3.508215, 'latitude': 50.723041, 'european_electoral_region': ..." type="foritem">
+<kw name="Get Value From Json" library="JSONLibrary">
+<doc>Get Value From JSON using JSONPath</doc>
+<arguments>
+<arg>${postcode}</arg>
+<arg>$.postcode</arg>
+</arguments>
+<assign>
+<var>${postcodeAsString}</var>
+</assign>
+<msg timestamp="20200915 18:30:31.142" level="INFO">${postcodeAsString} = ['EX1 2AQ']</msg>
+<status status="PASS" starttime="20200915 18:30:31.069" endtime="20200915 18:30:31.142"></status>
+</kw>
+<kw name="Get From List" library="Collections">
+<doc>Returns the value specified with an ``index`` from ``list``.</doc>
+<arguments>
+<arg>${postcodeAsString}</arg>
+<arg>0</arg>
+</arguments>
+<assign>
+<var>${postcodeAsString}</var>
+</assign>
+<msg timestamp="20200915 18:30:31.143" level="INFO">${postcodeAsString} = EX1 2AQ</msg>
+<status status="PASS" starttime="20200915 18:30:31.142" endtime="20200915 18:30:31.143"></status>
+</kw>
+<kw name="Log To Console" library="BuiltIn">
+<doc>Logs the given message to the console.</doc>
+<arguments>
+<arg>${postcodeAsString}</arg>
+</arguments>
+<status status="PASS" starttime="20200915 18:30:31.143" endtime="20200915 18:30:31.144"></status>
+</kw>
+<status status="PASS" starttime="20200915 18:30:31.068" endtime="20200915 18:30:31.144"></status>
+</kw>
+<kw name="${postcode} = {'postcode': 'EX1 2RG', 'quality': 1, 'eastings': 293818, 'northings': 92503, 'country': 'England', 'nhs_ha': 'South West', 'longitude': -3.505616, 'latitude': 50.722418, 'european_electoral_region': ..." type="foritem">
+<kw name="Get Value From Json" library="JSONLibrary">
+<doc>Get Value From JSON using JSONPath</doc>
+<arguments>
+<arg>${postcode}</arg>
+<arg>$.postcode</arg>
+</arguments>
+<assign>
+<var>${postcodeAsString}</var>
+</assign>
+<msg timestamp="20200915 18:30:31.193" level="INFO">${postcodeAsString} = ['EX1 2RG']</msg>
+<status status="PASS" starttime="20200915 18:30:31.145" endtime="20200915 18:30:31.193"></status>
+</kw>
+<kw name="Get From List" library="Collections">
+<doc>Returns the value specified with an ``index`` from ``list``.</doc>
+<arguments>
+<arg>${postcodeAsString}</arg>
+<arg>0</arg>
+</arguments>
+<assign>
+<var>${postcodeAsString}</var>
+</assign>
+<msg timestamp="20200915 18:30:31.195" level="INFO">${postcodeAsString} = EX1 2RG</msg>
+<status status="PASS" starttime="20200915 18:30:31.194" endtime="20200915 18:30:31.195"></status>
+</kw>
+<kw name="Log To Console" library="BuiltIn">
+<doc>Logs the given message to the console.</doc>
+<arguments>
+<arg>${postcodeAsString}</arg>
+</arguments>
+<status status="PASS" starttime="20200915 18:30:31.195" endtime="20200915 18:30:31.196"></status>
+</kw>
+<status status="PASS" starttime="20200915 18:30:31.144" endtime="20200915 18:30:31.196"></status>
+</kw>
+<status status="PASS" starttime="20200915 18:30:30.665" endtime="20200915 18:30:31.197"></status>
+</kw>
+<status status="PASS" starttime="20200915 18:30:30.072" endtime="20200915 18:30:31.198" critical="yes"></status>
+</test>
+<status status="PASS" starttime="20200915 18:30:29.488" endtime="20200915 18:30:31.200"></status>
+</suite>
+<statistics>
+<total>
+<stat pass="1" fail="0">Critical Tests</stat>
+<stat pass="1" fail="0">All Tests</stat>
+</total>
+<tag>
+</tag>
+<suite>
+<stat pass="1" fail="0" id="s1" name="Exercise8">Exercise8</stat>
+</suite>
+</statistics>
+<errors>
+</errors>
+</robot>

@@ -6,7 +6,7 @@ ${POSTCODES_ENDPOINT}=  /postcodes
 
 *** Keywords ***
 Validate Postcode
-    [Arguments]  ${postcode}  ${api}=${APIUT}
+    [Arguments]  ${postcode}  ${api}=${APIUt}
     ${response}=  Get request  ${api}  ${POSTCODES_ENDPOINT}/${postcode}/validate
     ${response}=  To Json  ${response.text}
     ${result}=  Get value from json  ${response}  $.result
