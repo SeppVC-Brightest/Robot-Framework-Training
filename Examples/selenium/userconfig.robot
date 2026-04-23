@@ -1,3 +1,3 @@
 *** Variables ***
-${USERNAME}=    tomsmith
-${PASSWORD}=    SuperSecretPassword!
+${USERNAME}    tomsmith
+${PASSWORD}    SuperSecretPassword!

@@ -1,2 +1,2 @@
 *** Variables ***
-${BASE_URL}=    http://postcodes.io
+${BASE_URL}    http://postcodes.io

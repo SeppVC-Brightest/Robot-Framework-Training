@@ -5,6 +5,6 @@ Library  Collections
 Resource  ../restconfig.robot
 
 *** Variables ***
-${APIUt}=  APIUt
+${APIUt}  APIUt
 
 *** Keywords ***

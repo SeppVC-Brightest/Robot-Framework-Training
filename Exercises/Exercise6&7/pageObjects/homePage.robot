@@ -2,8 +2,8 @@
 Resource  basePage.robot
 
 *** Variables ***
-${SIGNINLNK}=       css:.header_user_info > a
-${ABOUTUSLNK}=      css:[title='About us']
+${SIGNINLNK}    css:.header_user_info > a
+${ABOUTUSLNK}   css:[title='About us']
 
 *** Keywords ***
 Go To Signin Page

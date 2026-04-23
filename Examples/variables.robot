@@ -1,5 +1,5 @@
 *** Variables ***
-${GLOBALVARIABLE}=  Hello World!
+${GLOBALVARIABLE}  Hello World!
 
 *** Test Cases ***
 Assigning Variables

@@ -4,7 +4,9 @@ Library  DateTime
 *** Keywords ***
 Should Be Greater Than
     [Arguments]  ${date1}  ${date2}
-    Run Keyword If  '${date1}'<='${date2}'  Fail  The first date was earlier than or equal to the second date
+    IF  '${date1}'<='${date2}'
+        Fail  The first date was earlier than or equal to the second date
+    END
 
 *** Test Cases ***
 Time Difference

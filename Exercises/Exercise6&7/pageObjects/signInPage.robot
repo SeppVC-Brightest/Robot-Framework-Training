@@ -2,8 +2,8 @@
 Resource  basePage.robot
 
 *** Variables ***
-${EMAILCREATETXT}=      id:email_create
-${CREATEACCOUNTBTN}=    id:SubmitCreate
+${EMAILCREATETXT}    id:email_create
+${CREATEACCOUNTBTN}  id:SubmitCreate
 
 *** Keywords ***
 Create Account

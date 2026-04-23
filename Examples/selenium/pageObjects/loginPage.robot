@@ -2,11 +2,11 @@
 Resource  basePage.robot
 
 *** Variables ***
-${LOGINPAGE_ENDPOINT}=        /login
-${USERNAMETXT}=     id:username
-${PASSWORDTXT}=     id:password
-${LOGINBTN}=        css:Button
-${ERRORMSG}=        css:.flash.error
+${LOGINPAGE_ENDPOINT}      /login
+${USERNAMETXT}  id:username
+${PASSWORDTXT}  id:password
+${LOGINBTN}     css:Button
+${ERRORMSG}     css:.flash.error
 
 *** Keywords ***
 Go To Loginpage
@@ -21,4 +21,4 @@ Login With Username and Password
 
 Get Error Message
     ${error}=  Get Text  ${ERRORMSG}
-    [Return]  ${error}
+    RETURN  ${error}

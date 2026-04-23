@@ -1,12 +1,13 @@
 *** Settings ***
 Library  RequestsLibrary
-Library  JSONLibrary
+Library  Collections
 
 *** Test Cases ***
 Get Example
 	Create Session  APIUt  http://postcodes.io
-	${response}=  Get Request  APIUt  /random/postcodes
+	${response}=  GET On Session  APIUt  /random/postcodes
 	Log  ${response.status_code} ${response.text}
-	${response}=  To Json  ${response.text}
-	${result}=  Get Value From Json  ${response}  $.result.postcode
-	Log  ${result}
+	${response_json}=  Evaluate  json.loads('''${response.text}''')  json
+	${result}=  Get From Dictionary  ${response_json}  result
+	${postcode}=  Get From Dictionary  ${result}  postcode
+	Log  ${postcode}

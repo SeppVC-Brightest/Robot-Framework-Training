@@ -1,9 +1,9 @@
 *** Settings ***
-Library  SeleniumLibrary
+Resource  ./selenium/helpers/browsermanager.robot
 
 *** Test Cases ***
 The First Selenium Test
-    Open Browser  https://www.brightest.be  Google Chrome
+    Open Browser With WebDriver Manager  https://www.brightest.be  chrome
     Sleep  5s
     Close Browser
 

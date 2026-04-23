@@ -12,8 +12,12 @@ One Required And One With Default
 
 Single Return Keyword
     [Documentation]  This keyword returns 1 value
-    [Return]  Return value
+    RETURN  Return value
 
 Multiple Return Keyword
     [Documentation]  This keyword returns 2 values
-    [Return]  value1  ${2}
+    RETURN  value1  ${2}
+
+
+
+    

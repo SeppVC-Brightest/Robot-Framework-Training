@@ -2,7 +2,7 @@
 Resource  ./resources/resource.robot
 
 *** Variables ***
-${MESSAGE}=  Hello World!
+${MESSAGE}  Hello World!
 
 *** Keywords ***
 Multiply numbers
@@ -10,7 +10,7 @@ Multiply numbers
     [Arguments]  ${number1}  ${number2}
     ${result}=  Evaluate  ${number1} * ${number2}
     Log  ${result}
-    [Return]  ${result}
+    RETURN  ${result}
 
 *** Test Cases ***
 Test case 1
@@ -20,3 +20,7 @@ Test case 1
     # This line is a comment
     ${result}=  Add two strings  Robot  Framework
     Log  ${result}
+
+
+
+    

@@ -2,20 +2,20 @@
 Resource  basePage.robot
 
 *** Variables ***
-${FIRSTNAMEINFOTXT}=       id:customer_firstname
-${LASTNAMEINFOTXT}=        id:customer_lastname
-${EMAILTXT}=               id:email
-${PASSWORDTXT}=            id:passwd
-${FIRSTNAMEADDRESSTXT}=    id:firstname
-${LASTNAMEADDRESSTXT}=     id:lastname
-${ADDRESSTXT}=             id:address1
-${CITYTXT}=                id:city
-${STATESEL}=               id:id_state
-${ZIPTXT}=                 id:postcode
-${COUNTRYSEL}=             id:id_country
-${MOBILETXT}=              id:phone_mobile
-${SUBMITBTN}=              id:submitAccount
-${CREATEACCOUNTERROR}=     css:.alert.alert-danger
+${FIRSTNAMEINFOTXT}      id:customer_firstname
+${LASTNAMEINFOTXT}       id:customer_lastname
+${EMAILTXT}              id:email
+${PASSWORDTXT}           id:passwd
+${FIRSTNAMEADDRESSTXT}   id:firstname
+${LASTNAMEADDRESSTXT}    id:lastname
+${ADDRESSTXT}            id:address1
+${CITYTXT}               id:city
+${STATESEL}              id:id_state
+${ZIPTXT}                id:postcode
+${COUNTRYSEL}            id:id_country
+${MOBILETXT}             id:phone_mobile
+${SUBMITBTN}             id:submitAccount
+${CREATEACCOUNTERROR}    css:.alert.alert-danger
 
 *** Keywords ***
 Fill In Account Data
@@ -37,4 +37,4 @@ Fill In Account Data
 
 Get Create Account Error Message
     ${text}=  Get Text  ${CREATEACCOUNTERROR}
-    [Return]  ${text}
+    RETURN  ${text}
