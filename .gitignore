@@ -1,0 +1,27 @@
+# Robot Framework
+## Test Reports
+log.html
+output.xml
+report.html
+
+## Screenshots
+screenshots/
+**/screenshots/
+*.png
+*.jpg
+*.jpeg
+
+## Virtual Environment
+.venv/
+venv/
+env/
+
+## IDE
+.vscode/
+.idea/
+*.pyc
+__pycache__/
+
+## OS
+.DS_Store
+Thumbs.db

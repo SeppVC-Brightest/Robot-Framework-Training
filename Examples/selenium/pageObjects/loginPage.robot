@@ -5,8 +5,8 @@ Resource  basePage.robot
 ${LOGINPAGE_ENDPOINT}      /login
 ${USERNAMETXT}  id:username
 ${PASSWORDTXT}  id:password
-${LOGINBTN}     css:Button
-${ERRORMSG}     css:.flash.error
+${LOGINBTN}     css:button
+${ERRORMSG}     css:.flash
 
 *** Keywords ***
 Go To Loginpage
@@ -20,5 +20,6 @@ Login With Username and Password
     Click Element  ${LOGINBTN}
 
 Get Error Message
+    Wait Until Element Is Visible  ${ERRORMSG}  10s
     ${error}=  Get Text  ${ERRORMSG}
     RETURN  ${error}
